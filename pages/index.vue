@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>History</h1>
+    <h1 class="title is-2 has-text-white">History</h1>
     Задачи: {{ tasks }}
     <br/>
     Пользователь: {{ userInfo }}
