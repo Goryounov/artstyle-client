@@ -128,7 +128,7 @@ export default {
 
   async mounted() {
     try {
-      // this.keys = await this.$axios.$get('keys')
+      this.keys = await this.$axios.$get('keys')
       this.callbacks = await this.$axios.$get('callbacks')
     } catch (err) {
       console.log(err.message)

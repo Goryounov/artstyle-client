@@ -53,7 +53,7 @@ export default {
       local: {
         scheme: "refresh",
         token: {
-          property: "token",
+          property: "accessToken",
           global: true,
           required: true,
           type: "Bearer"
@@ -63,14 +63,14 @@ export default {
           autoFetch: true
         },
         refreshToken: {
-          property: "refresh_token",
-          data: "refresh_token"
+          property: "refreshToken",
+          data: "refreshToken"
         },
         endpoints: {
           login: { url: "/auth/signin", method: "post" },
           refresh: { url: "/auth/refresh", method: "post" },
-          logout: false,
-          user: { url: "/auth/user", method: "get" }
+          user: { url: "/auth/user", method: "get" },
+          logout: false
         }
       }
     }
