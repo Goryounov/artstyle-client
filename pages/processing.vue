@@ -5,15 +5,15 @@
       <p class="art_desc">Идет обработка изображений</p>
       <div class="images_block">
         <div class="tasks">
-          <task 
-            v-for="task in tasks" 
-            :key="task.id" 
+          <task
+            v-for="task in tasks"
+            :key="task.id"
             :task="task"
             @remove="removeTask(task.id)"
           />
         </div>
-      </div>        
-    </div>  
+      </div>
+    </div>
     <div class="button_back">
       <button class="back" @click="goBack">Назад</button>
     </div>

@@ -10,7 +10,7 @@
         <div v-else class="images_grid">
           <div v-for="(image, index) in images" :key="index" class="image_item">
             <div class="img" :class="{ loading: image.loading }">
-              <img :src="image.url" alt="" />
+              <img :src="image.url" alt=""/>
               <img
                 v-if="!image.loading"
                 :src="require('@/assets/images/close_icon.svg')"
@@ -19,7 +19,7 @@
                 @click="removeImage(index)"
               />
               <div v-if="image.loading" class="loader_icon">
-                <img :src="require('@/assets/images/loading_icon.svg')" alt="loading_icon" />
+                <img :src="require('@/assets/images/loading_icon.svg')" alt="loading_icon"/>
                 <p>Загрузка...</p>
               </div>
             </div>
@@ -40,7 +40,7 @@
         </button>
       </div>
     </div>
-    <input type="file" ref="fileInput" multiple @change="handleFileUpload" style="display: none" />
+    <input type="file" ref="fileInput" multiple @change="handleFileUpload" style="display: none"/>
   </section>
 </template>
 
@@ -49,19 +49,23 @@ export default {
   data() {
     return {
       images: [],
-    };
+    }
   },
+
   computed: {
     allImagesLoaded() {
-      return this.images.length > 0 && this.images.every(image => !image.loading);
-    },
+      return this.images.length > 0 && this.images.every(image => !image.loading)
+    }
   },
+
   methods: {
     uploadImages() {
-      this.$refs.fileInput.click();
+      this.$refs.fileInput.click()
     },
+
     handleFileUpload(event) {
-      const files = event.target.files;
+      const files = event.target.files
+
       Array.from(files).forEach(file => {
         const reader = new FileReader();
         const image = {
@@ -69,35 +73,42 @@ export default {
           size: (file.size / (1024 * 1024)).toFixed(2),
           url: '',
           loading: true,
-          file // сохраним сам файл для отправки на сервер позже
-        };
+          file
+        }
+
         this.images.push(image);
         reader.onload = e => {
-          image.url = e.target.result;
-          image.loading = false;
-        };
-        reader.readAsDataURL(file);
-      });
+          image.url = e.target.result
+          image.loading = false
+        }
+
+        reader.readAsDataURL(file)
+      })
     },
+
     removeImage(index) {
-      this.images.splice(index, 1);
+      this.images.splice(index, 1)
     },
-    goToStylePage() {
+
+    async goToStylePage() {
       if (this.allImagesLoaded) {
         // отправка изображений на сервер
-        const formData = new FormData();
+        const formData = new FormData()
         this.images.forEach(image => {
-          formData.append('images', image.file);
+          formData.append('Images', image.file)
         });
 
-        // тут должна быть отправка
+        try {
+          const res = await this.$axios.post('tasks', formData)
+        } catch (err) {
+          console.log(err)
+        }
 
-        // пока просто редирект на страницу обработки
-        this.$router.push('/processing');
+        this.$router.push('/result')
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -133,7 +144,7 @@ export default {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aaa #e9e8e8;
-    
+
 }
 
 .empty_message {

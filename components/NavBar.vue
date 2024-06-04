@@ -28,7 +28,7 @@
         О приложении
       </nuxt-link>
       <nuxt-link
-        to="/account"
+        to="/api"
         class="navbar__link">
         API
       </nuxt-link>

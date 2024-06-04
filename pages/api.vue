@@ -3,15 +3,15 @@
     <div class="api_top">
       <h1 class="api_title">API</h1>
       <p class="api_text">
-        Здесь вы можете отправлять запросы по Api
+        Здесь вы можете настроить взаимодействие с API
       </p>
     </div>
     <div class="api_container">
-      <h2 class="title is-3 has-text-white">API Keys</h2>
-      <b-field label="Key Name" grouped>
-        <b-input v-model="keyName" placeholder="Enter the key name"></b-input>
+      <h2 class="title is-3 has-text-white">API ключи</h2>
+      <b-field label="Название ключа" grouped>
+        <b-input v-model="keyName" placeholder="Введите название"></b-input>
         <p class="control">
-          <b-button @click="createToken">Create API key</b-button>
+          <b-button @click="createToken">Сгенерировать</b-button>
         </p>
       </b-field>
 
@@ -26,14 +26,14 @@
         <b-table-column
           v-slot="props"
           field="name"
-          label="Name">
+          label="Название">
           {{ props.row.name }}
         </b-table-column>
 
         <b-table-column
           v-slot="props"
           field="key"
-          label="Key"
+          label="Ключ"
           centered>
           {{ props.row.key }}
         </b-table-column>
@@ -41,7 +41,7 @@
         <b-table-column
           v-slot="props"
           field="createdAt"
-          label="Created At"
+          label="Дата создания"
           centered>
           {{ props.row.createdAt }}
         </b-table-column>
@@ -55,18 +55,18 @@
                   size="is-large">
                 </b-icon>
               </p>
-              <p class="has-text-centered">Empty</p>
+              <p class="has-text-centered">Пусто</p>
             </div>
           </section>
         </template>
       </b-table>
 
-      <h2 class="title is-3 has-text-white">Callback Servers</h2>
-      <b-field label="Callback Server URL" grouped>
-        <b-input v-model="url" placeholder="Enter the URL"></b-input>
-        <b-input v-model="secret" placeholder="Enter the secret key"></b-input>
+      <h2 class="title is-3 has-text-white">Callback-серверы</h2>
+      <b-field label="Callback-сервер URL и ключ" grouped>
+        <b-input v-model="url" placeholder="Введите URL"></b-input>
+        <b-input v-model="secret" placeholder="Введите ключ доступа"></b-input>
         <p class="control">
-          <b-button @click="createCallback">Create Callback Server</b-button>
+          <b-button @click="createCallback">Создать</b-button>
         </p>
       </b-field>
 
@@ -87,7 +87,7 @@
         <b-table-column
           v-slot="props"
           field="secret"
-          label="Secret"
+          label="Ключ"
           centered>
           {{ props.row.secret }}
         </b-table-column>
@@ -95,7 +95,7 @@
         <b-table-column
           v-slot="props"
           field="createdAt"
-          label="Created At"
+          label="Дата создания"
           centered>
           {{ props.row.createdAt }}
         </b-table-column>
@@ -109,18 +109,18 @@
                   size="is-large">
                 </b-icon>
               </p>
-              <p class="has-text-centered">Empty</p>
+              <p class="has-text-centered">Пусто</p>
             </div>
           </section>
         </template>
       </b-table>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
-  name: 'Account',
+  name: 'Api',
 
   data() {
     return {
@@ -172,7 +172,7 @@ export default {
 .api_top {
   padding: 30px 0 0 0;
   color: #efe9e2;
-    
+
   .api_title {
     font-size: 64px;
     font-weight: 400;
@@ -184,13 +184,14 @@ export default {
     font-weight: 400;
     margin-bottom: 60px;
   }
-} 
-.api_container{
-  font-family: "Tinos";
 }
 
-::v-deep .button{
-    background-color: #d3a064;
-    border: none;
+.api_container {
+  font-family: "Tinos", serif;
+}
+
+::v-deep .button {
+  background-color: #d3a064;
+  border: none;
 }
 </style>

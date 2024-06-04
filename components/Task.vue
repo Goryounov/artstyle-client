@@ -11,6 +11,7 @@
     </div>
     <p class="img-name">{{ task.name }}</p>
     <p class="img-status">Статус: {{ task.status }}</p>
+    <p class="img-status">Класс: {{ task.classId }}</p>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
   props: {
     task: {
       type: Object,
-      required: true,
+      required: true
     },
   },
 };
