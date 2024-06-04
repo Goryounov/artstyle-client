@@ -10,7 +10,7 @@ export default {
     },
     meta: [
       { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=0.8"  },
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" }
     ]
@@ -82,4 +82,6 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
+
+
 };
