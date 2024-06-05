@@ -1,10 +1,12 @@
+require('dotenv').config()
+
 export default {
   ssr: false,
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "frontend",
+    title: "ArtStyle",
     htmlAttrs: {
       lang: "en"
     },
@@ -78,10 +80,14 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: "http://localhost:5001"
+    baseURL: process.env.API_BASE_URL || 'http://192.168.199.235:5001'
   },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
 
-
-};
+  dotenv: {
+    path: './',
+    filename: process.env.NODE_ENV === 'production' ? '.production.env' : '.development.env'
+  }
+}

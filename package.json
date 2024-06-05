@@ -3,21 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "cross-env NODE_ENV=development API_BASE_URL=http://localhost:5001 nuxt",
+    "build": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt build",
+    "start": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt start",
+    "generate": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt generate"
   },
   "dependencies": {
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/dotenv": "^1.4.2",
     "buefy": "^0.9.21",
     "bulma": "^0.9.3",
     "bulma-pricingtable": "^0.2.0",
     "core-js": "^3.15.1",
+    "cross-env": "^7.0.3",
     "nuxt": "^2.15.7",
-    "nuxt-buefy": "^0.3.31"
+    "nuxt-buefy": "^0.3.31",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@nuxt/types": "~2.15.0"

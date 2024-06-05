@@ -2,11 +2,14 @@
   <section class="art_images">
     <div class="container">
       <h2 class="art_title">ArtStyle</h2>
+
       <p class="art_desc">Загрузи изображение картин, без посторонних объектов</p>
+
       <div class="images_block">
         <div v-if="images.length === 0" class="empty_message">
           Нажмите на кнопку загрузить изображения
         </div>
+
         <div v-else class="images_grid">
           <div v-for="(image, index) in images" :key="index" class="image_item">
             <div class="img" :class="{ loading: image.loading }">
@@ -28,37 +31,60 @@
           </div>
         </div>
       </div>
-      <div class="image_buttons">
+
+      <div class="image_buttons mb-3">
         <button class="add_image" @click="uploadImages">Добавить картины</button>
         <button
           class="know_style"
           :class="{ disabled: !allImagesLoaded }"
           @click="goToStylePage"
-          :disabled="!allImagesLoaded"
-        >
+          :disabled="!allImagesLoaded">
           Узнать стиль
         </button>
       </div>
+
+      <div v-if="loadedTasks.length" class="result">
+        <p class="art_desc">Результат</p>
+        <div class="result__tasks">
+          <task
+            v-for="task in loadedTasks"
+            :key="task.id"
+            :task="task"
+          />
+        </div>
+      </div>
     </div>
+
     <input type="file" ref="fileInput" multiple @change="handleFileUpload" style="display: none"/>
   </section>
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
+
 export default {
   data() {
     return {
       images: [],
+      loadedTasksIds: []
     }
   },
 
   computed: {
+      ...mapState('tasks', ['tasks']),
+
     allImagesLoaded() {
       return this.images.length > 0 && this.images.every(image => !image.loading)
+    },
+
+    loadedTasks() {
+      return this.tasks.filter(item => this.loadedTasksIds.includes(item.id))
     }
   },
 
   methods: {
+    ...mapMutations('tasks', { addTasks: 'ADD_TASKS' }),
+
     uploadImages() {
       this.$refs.fileInput.click()
     },
@@ -67,7 +93,7 @@ export default {
       const files = event.target.files
 
       Array.from(files).forEach(file => {
-        const reader = new FileReader();
+        const reader = new FileReader()
         const image = {
           name: file.name,
           size: (file.size / (1024 * 1024)).toFixed(2),
@@ -76,7 +102,7 @@ export default {
           file
         }
 
-        this.images.push(image);
+        this.images.push(image)
         reader.onload = e => {
           image.url = e.target.result
           image.loading = false
@@ -92,26 +118,26 @@ export default {
 
     async goToStylePage() {
       if (this.allImagesLoaded) {
-        // отправка изображений на сервер
         const formData = new FormData()
         this.images.forEach(image => {
           formData.append('Images', image.file)
-        });
+        })
 
         try {
-          const res = await this.$axios.post('tasks', formData)
+          const tasks = (await this.$axios.post('tasks', formData)).data
+          this.loadedTasksIds = [...this.loadedTasksIds, ...tasks.map(item => item.id)]
+          this.addTasks(tasks)
+          this.images = []
         } catch (err) {
           console.log(err)
         }
-
-        this.$router.push('/result')
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .art_images {
   margin-bottom: 30px;
@@ -280,5 +306,11 @@ export default {
 .know_style.disabled {
   background: #b0b0b0;
   cursor: not-allowed;
+}
+
+.result {
+  &__tasks {
+    display: flex;
+  }
 }
 </style>

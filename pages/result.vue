@@ -7,10 +7,10 @@
       </p>
     </div>
     <div class="tasks">
-      <task 
-        v-for="task in tasks" 
-        :key="task.id" 
-        :task="task" 
+      <task
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
         @remove="removeTask(task.id)"
       />
     </div>
@@ -18,27 +18,32 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex'
+
 import Task from '~/components/Task.vue'
 
 export default {
   components: {
     Task
   },
-  data() {
-    return {
-      tasks: []
-    }
+
+  computed: {
+    ...mapState('tasks', ['tasks'])
   },
+
   async mounted() {
     try {
-      this.tasks = (await this.$axios.get('tasks')).data
+      await this.getTasks()
     } catch (err) {
       console.log(err)
     }
   },
+
   methods: {
+    ...mapActions('tasks', ['getTasks']),
+
     removeTask(taskId) {
-      this.tasks = this.tasks.filter(task => task.id !== taskId);
+      this.tasks = this.tasks.filter(task => task.id !== taskId)
     }
   }
 }
@@ -48,6 +53,7 @@ export default {
 .result_block {
   margin-bottom: 30px;
 }
+
 .result_top {
   padding: 30px 0 0 0;
   color: #efe9e2;

@@ -1,52 +1,71 @@
 <template>
   <div class="navbar">
     <div class="navbar__block">
-    <div class="navbar__logo">
-      <nuxt-link
-        to="/"
-        class="navbar__link">
-        <img :src="require('@/assets/images/logo.png')" alt="logo">
-      </nuxt-link>
-    </div>
-
-    <div class="navbar__menu">
-      <nuxt-link
-        to="/"
-        class="navbar__link">
-        Приложение
-      </nuxt-link>
-
-      <nuxt-link
-        to="/result"
-        class="navbar__link">
-        История
-      </nuxt-link>
-
-      <nuxt-link
-        to="/about"
-        class="navbar__link">
-        О приложении
-      </nuxt-link>
-      <nuxt-link
-        to="/api"
-        class="navbar__link">
-        API
-      </nuxt-link>
-      <div
-        class="navbar__link"
-        @click="logout">
-        Выйти
+      <div class="navbar__logo">
+        <nuxt-link
+          to="/"
+          class="navbar__link">
+          <img :src="require('@/assets/images/logo.png')" alt="logo">
+        </nuxt-link>
       </div>
-    </div>
+
+      <div class="navbar__menu">
+        <nuxt-link
+          to="/"
+          class="navbar__link">
+          Приложение
+        </nuxt-link>
+
+        <nuxt-link
+          to="/result"
+          class="navbar__link">
+          История
+        </nuxt-link>
+
+        <nuxt-link
+          to="/about"
+          class="navbar__link">
+          О приложении
+        </nuxt-link>
+        <nuxt-link
+          to="/api"
+          class="navbar__link">
+          API
+        </nuxt-link>
+        <div
+          class="navbar__link"
+          @click="logout">
+          Выйти
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex'
+import { io } from 'socket.io-client'
+
 export default {
   name: 'NavBar',
 
+  computed: {
+    ...mapState('classes', ['classes'])
+  },
+
+  async mounted() {
+    !this.classes.length && await this.getClasses()
+
+    const socket = io('http://localhost:5001')
+    socket.on('task-updated', (taskData) => {
+      this.updateTask(taskData)
+    })
+  },
+
   methods: {
+    ...mapActions('classes', ['getClasses']),
+    ...mapMutations('tasks', { updateTask: 'UPDATE_TASK' }),
+
     async logout() {
       await this.$auth.logout()
       this.$router.replace('/signin')

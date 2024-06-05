@@ -1,30 +1,40 @@
 <template>
   <div class="task">
     <div class="img-container">
-      <img :src="task.imageUrl" alt="image" />
-      <img
-        src="@/assets/images/close_icon.svg"
-        alt="close_icon"
-        class="close"
-        @click="$emit('remove', task.id)"
-      />
+      <img :src="task.imageUrl" alt="image"/>
+<!--      <img-->
+<!--        src="@/assets/images/close_icon.svg"-->
+<!--        alt="close_icon"-->
+<!--        class="close"-->
+<!--        @click="$emit('remove', task.id)"-->
+<!--      />-->
     </div>
     <p class="img-name">{{ task.name }}</p>
     <p class="img-status">Статус: {{ task.status }}</p>
-    <p class="img-status">Класс: {{ task.classId }}</p>
+    <p v-if="taskClass" class="img-status">Класс: {{ taskClass }}</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Task',
   props: {
     task: {
       type: Object,
       required: true
-    },
+    }
   },
-};
+
+  computed: {
+    ...mapGetters('classes', ['classByCLassId']),
+
+    taskClass() {
+      return this.classByCLassId(this.task.classId)?.name
+    }
+  }
+}
 </script>
 
 <style scoped>
