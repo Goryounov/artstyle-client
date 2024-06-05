@@ -45,6 +45,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 import { io } from 'socket.io-client'
+import { apiBaseUrl } from '../config'
 
 export default {
   name: 'NavBar',
@@ -56,7 +57,7 @@ export default {
   async mounted() {
     !this.classes.length && await this.getClasses()
 
-    const socket = io('http://localhost:5001')
+    const socket = io(apiBaseUrl)
     socket.on('task-updated', (taskData) => {
       this.updateTask(taskData)
     })
