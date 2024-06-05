@@ -122,20 +122,20 @@ export default {
       if (this.allImagesLoaded) {
         this.isUploading = true
 
-        const formData = new FormData()
-        this.images.forEach(image => {
+        for (const image of this.images) {
+          const formData = new FormData()
           formData.append('Images', image.file)
-        })
 
-        try {
-          this.images = []
-          const tasks = (await this.$axios.post('tasks', formData)).data
-          this.loadedTasksIds = [...this.loadedTasksIds, ...tasks.map(item => item.id)]
-          this.addTasks(tasks)
-          this.isUploading = false
-        } catch (err) {
-          console.log(err)
+          try {
+            const tasks = (await this.$axios.post('tasks', formData)).data
+            this.loadedTasksIds = [...this.loadedTasksIds, ...tasks.map(item => item.id)]
+            this.addTasks(tasks)
+          } catch (err) {
+            console.log(err)
+          }
         }
+        this.images = []
+        this.isUploading = false
       }
     }
   }
