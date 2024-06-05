@@ -7,11 +7,10 @@
 
       <div class="images_block">
         <div v-if="images.length === 0" class="empty_message">
+          {{
+            isUploading ? 'Загрузка...' : 'Нажмите на кнопку "Добавить картины", чтобы загрузить изображения'
+          }}
           Нажмите на кнопку "Добавить картины", чтобы загрузить изображения
-        </div>
-
-        <div v-else-if="isUploading" class="empty_message">
-          Загрузка...
         </div>
 
         <div v-else class="images_grid">
