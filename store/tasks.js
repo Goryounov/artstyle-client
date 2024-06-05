@@ -19,8 +19,8 @@ const mutations = {
     const task = state.tasks.find(item => item.id === taskData.taskId)
     if (!task) return
 
-    if (task.status) Vue.set(task, 'status', taskData.status)
-    if (task.classId) Vue.set(task, 'classId', taskData.classId)
+    if (taskData.status) Vue.set(task, 'status', taskData.status)
+    if (taskData.classId) Vue.set(task, 'classId', taskData.classId)
   }
 }
 
