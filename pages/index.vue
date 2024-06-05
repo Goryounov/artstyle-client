@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="image_buttons mb-3">
+      <div class="image_buttons mb-5">
         <button class="add_image" @click="uploadImages">Добавить картины</button>
         <button
           class="know_style"
@@ -46,7 +46,7 @@
       </div>
 
       <div v-if="loadedTasks.length" class="result">
-        <p class="art_desc">Результат</p>
+        <p class="result__desc">Результат</p>
         <div class="result__tasks">
           <task
             v-for="task in loadedTasks"
@@ -314,6 +314,14 @@ export default {
 }
 
 .result {
+  &__desc {
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 48px;
+    margin-top: 50px;
+  }
+
   &__tasks {
     display: flex;
     flex-wrap: wrap;
