@@ -311,6 +311,7 @@ export default {
 .result {
   &__tasks {
     display: flex;
+    flex-wrap: wrap;
   }
 }
 </style>
