@@ -7,7 +7,11 @@
 
       <div class="images_block">
         <div v-if="images.length === 0" class="empty_message">
-          Нажмите на кнопку загрузить изображения
+          Нажмите на кнопку "Добавить картины", чтобы загрузить изображения
+        </div>
+
+        <div v-else-if="isUploading" class="empty_message">
+          Загрузка...
         </div>
 
         <div v-else class="images_grid">
@@ -38,7 +42,7 @@
           class="know_style"
           :class="{ disabled: !allImagesLoaded }"
           @click="goToStylePage"
-          :disabled="!allImagesLoaded">
+          :disabled="!allImagesLoaded || isUploading">
           Узнать стиль
         </button>
       </div>
@@ -54,7 +58,6 @@
         </div>
       </div>
     </div>
-
     <input type="file" ref="fileInput" multiple @change="handleFileUpload" style="display: none"/>
   </section>
 </template>
@@ -66,7 +69,8 @@ export default {
   data() {
     return {
       images: [],
-      loadedTasksIds: []
+      loadedTasksIds: [],
+      isUploading: false
     }
   },
 
@@ -118,16 +122,19 @@ export default {
 
     async goToStylePage() {
       if (this.allImagesLoaded) {
+        this.isUploading = true
+
         const formData = new FormData()
         this.images.forEach(image => {
           formData.append('Images', image.file)
         })
 
         try {
+          this.images = []
           const tasks = (await this.$axios.post('tasks', formData)).data
           this.loadedTasksIds = [...this.loadedTasksIds, ...tasks.map(item => item.id)]
           this.addTasks(tasks)
-          this.images = []
+          this.isUploading = false
         } catch (err) {
           console.log(err)
         }
@@ -312,6 +319,12 @@ export default {
   &__tasks {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
   }
+}
+
+.loader-block {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
