@@ -59,7 +59,7 @@ html {
 body {
   color: #fff;
   font-family: 'Viaoda Libre', serif;
-  font-weight: 400;
+  font-weight: 400; 
 }
 
 .page {

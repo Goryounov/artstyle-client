@@ -77,6 +77,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  transform: scale(1.25);
+  transform-origin: top center;
+  margin-bottom: 1%;
   width: 100%;
   display: flex;
   align-items: center;
