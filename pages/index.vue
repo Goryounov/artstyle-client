@@ -122,17 +122,25 @@ export default {
       if (this.allImagesLoaded) {
         this.isUploading = true
 
-        for (const image of this.images) {
-          const formData = new FormData()
+        const uploadPromises = this.images.map(async (image) => {
+          const formData = new FormData();
           formData.append('Images', image.file)
 
           try {
-            const tasks = (await this.$axios.post('tasks', formData)).data
+            const response = await this.$axios.post('tasks', formData)
+            const tasks = response.data
             this.loadedTasksIds = [...this.loadedTasksIds, ...tasks.map(item => item.id)]
             this.addTasks(tasks)
           } catch (err) {
             console.log(err)
           }
+        });
+
+        try {
+          await Promise.all(uploadPromises);
+          console.log('All images uploaded successfully')
+        } catch (err) {
+          console.log('Error uploading images:', err)
         }
         this.images = []
         this.isUploading = false
