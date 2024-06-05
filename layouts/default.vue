@@ -20,10 +20,13 @@ export default {
 html {
   background: #000000;
   color: #FFFFFF;
+  transform: scale(0.8);
+  transform-origin: top center;
 }
 
 body {
   color: #FFFFFF;
+  height: 700px; 
 }
 
 .page {
