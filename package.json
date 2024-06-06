@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development API_BASE_URL=http://localhost:5001 nuxt",
-    "build": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt build",
-    "start": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt start",
-    "generate": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:5001 nuxt generate"
+    "build": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt build",
+    "start": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt start",
+    "generate": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt generate"
   },
   "dependencies": {
     "@nuxt/image": "^1.7.0",
