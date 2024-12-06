@@ -33,13 +33,17 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/axios', ssr: false }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/dotenv'
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -81,16 +85,9 @@ export default {
     }
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: process.env.API_BASE_URL || 'http://192.168.199.235:5001'
+  publicRuntimeConfig: {
+    apiUrl: process.env.API_URL
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
-
-  dotenv: {
-    path: './',
-    filename: process.env.NODE_ENV === 'production' ? '.production.env' : '.development.env'
-  }
+  build: {}
 }
