@@ -1,12 +1,12 @@
 {
-  "name": "frontend",
+  "name": "artstyle-client",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development API_BASE_URL=http://localhost:5001 nuxt",
-    "build": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt build",
-    "start": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt start",
-    "generate": "NODE_ENV=production API_BASE_URL=http://192.168.199.235:83 nuxt generate"
+    "dev": "cross-env NODE_ENV=development nuxt",
+    "build": "NODE_ENV=production nuxt build",
+    "start": "NODE_ENV=production nuxt start",
+    "generate": "NODE_ENV=production nuxt generate"
   },
   "dependencies": {
     "@nuxt/image": "^1.7.0",
@@ -18,11 +18,14 @@
     "bulma-pricingtable": "^0.2.0",
     "core-js": "^3.15.1",
     "cross-env": "^7.0.3",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.16.0",
     "nuxt-buefy": "^0.3.31",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
-    "@nuxt/types": "~2.15.0"
+    "@nuxt/types": "~2.15.0",
+    "postcss": "^8.4.49",
+    "sass": "^1.82.0",
+    "sass-loader": "^10.1.1"
   }
 }

@@ -2,7 +2,10 @@ require('dotenv').config()
 
 export default {
   ssr: false,
-  target: 'static',
+  target: 'server',
+  server: {
+    host: '0'
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
